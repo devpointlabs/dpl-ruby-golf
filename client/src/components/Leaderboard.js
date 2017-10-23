@@ -27,16 +27,24 @@ class Leaderboard extends Component {
       this.setState({ isAuthorized: false });
   }
 
-  displayScores = (scores) => {
-    const byScore = scores.slice(0);
-    byScore.sort(function(a,b) {
-      return a.score - b.score;
-    });
-    return byScore.map( (s, i) => {
+  displayScores = (scores, sortByHoles = false) => {
+    const slicedScores = scores.slice(0);
+
+    if(sortByHoles)
+      slicedScores.sort((a,b) => {
+        return a.holes_completed - b.holes_completed;
+      });
+    else
+      slicedScores.sort((a,b) => {
+        return a.score - b.score;
+      });
+
+    return slicedScores.map( (s, i) => {
       return(
         <List.Item key={i}>
           <h4> User Email: {s.email} </h4>
           <h4> Date: {s.date} </h4>
+          <h4> Holes Completed: {s.holes_completed} </h4>
           <h4> Total: {s.score} </h4>
           <h4>
             Solutions:
@@ -56,7 +64,7 @@ class Leaderboard extends Component {
         { menuItem: 'Complete Round Leaderboard', render: () => <Tab.Pane inverted>
           <Container>
             <Segment inverted textAlign='center'>
-              <List celled inverted ordered>
+              <List celled inverted>
                 { this.displayScores(completeScores) }
               </List>
             </Segment>
@@ -66,7 +74,7 @@ class Leaderboard extends Component {
           <Container>
             <Segment inverted textAlign='center'>
               <List celled inverted ordered>
-                { this.displayScores(incompleteScores) }
+                { this.displayScores(incompleteScores, true) }
               </List>
             </Segment>
           </Container>

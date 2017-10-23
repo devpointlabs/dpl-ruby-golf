@@ -3,8 +3,8 @@ u.scores = []
 
 u.scores << {
   date: Date.today,
-  scores: [3,5,3,4,2,3,10,1,3],
-  total: [0,5,3,4,2,3,10,1,0].inject(&:+),
+  scores: [0,5,3,4,2,3,10,0,3],
+  total: [3,5,3,4,2,3,10,1,3].inject(&:+),
   github_url: 'www.noncomplete.com',
   complete: false,
 }
