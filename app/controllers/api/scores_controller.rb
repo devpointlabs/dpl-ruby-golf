@@ -17,11 +17,7 @@ class Api::ScoresController < ApplicationController
         end
       end
     end
-
-    sorted_complete = complete_scores.sort_by {|_key, value| value }.reverse
-    sorted_incomplete = incomplete_scores.sort_by {|_key, value| value }.reverse
-
-    render json: { complete_scores: sorted_complete, incomplete_scores: sorted_incomplete }
+    render json: { complete_scores: complete_scores, incomplete_scores: incomplete_scores }
   end
 
   def create

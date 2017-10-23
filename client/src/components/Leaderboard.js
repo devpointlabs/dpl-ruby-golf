@@ -28,7 +28,11 @@ class Leaderboard extends Component {
   }
 
   displayScores = (scores) => {
-    return scores.map( (s, i) => {
+    const byScore = scores.slice(0);
+    byScore.sort(function(a,b) {
+      return a.score - b.score;
+    });
+    return byScore.map( (s, i) => {
       return(
         <List.Item key={i}>
           <h4> User Email: {s.email} </h4>
