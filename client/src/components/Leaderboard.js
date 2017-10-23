@@ -1,25 +1,33 @@
 import React, { Component } from 'react';
-import { List, Segment, Divider, Container } from 'semantic-ui-react';
+import { List, Segment, Divider, Container, Tab } from 'semantic-ui-react';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setFlash } from '../actions/flash';
+import { setHeaders } from '../actions/headers';
 
 class Leaderboard extends Component {
-  state = { scores: [], isAuthorized: true };
+  state = { completeScores: [], incompleteScores: [], isAuthorized: true };
 
   componentDidMount() {
-    if(this.props.user.scores.length)
+    if(this.props.user.scores.length) {
+      const { dispatch } = this.props;
+
       axios.get('/api/scores')
         .then(res => {
-          this.setState({ scores: res.data });
-      });
-    else
+          const { data: { complete_scores: completeScores, incomplete_scores: incompleteScores }, headers } = res;
+          this.setState({ completeScores, incompleteScores });
+          dispatch(setHeaders(headers))
+        })
+        .catch(res => {
+          dispatch(setHeaders(res.headers))
+        })
+    } else
       this.setState({ isAuthorized: false });
   }
 
-  displayScores = () => {
-    return this.state.scores.map( (s, i) => {
+  displayScores = (scores) => {
+    return scores.map( (s, i) => {
       return(
         <List.Item key={i}>
           <h4> User Email: {s.email} </h4>
@@ -36,17 +44,31 @@ class Leaderboard extends Component {
   }
 
   render() {
-    if(this.state.isAuthorized)
-      return(
-        <Container>
-          <Segment inverted textAlign='center'>
-            <List celled inverted ordered>
-              { this.displayScores() }
-            </List>
-          </Segment>
-        </Container>
-      );
-    else {
+    if(this.state.isAuthorized) {
+      const { completeScores, incompleteScores } = this.state;
+
+      const panes = [
+        { menuItem: 'Complete Round Leaderboard', render: () => <Tab.Pane inverted>
+          <Container>
+            <Segment inverted textAlign='center'>
+              <List celled inverted ordered>
+                { this.displayScores(completeScores) }
+              </List>
+            </Segment>
+          </Container>
+        </Tab.Pane> },
+        { menuItem: 'Incomplete Scores', render: () => <Tab.Pane inverted>
+          <Container>
+            <Segment inverted textAlign='center'>
+              <List celled inverted ordered>
+                { this.displayScores(incompleteScores) }
+              </List>
+            </Segment>
+          </Container>
+        </Tab.Pane> },
+      ]
+      return(<Tab panes={panes} />);
+    } else {
       this.props.dispatch(setFlash('You need to score 1 round before you can see the leaderboard!', 'red'));
       return(<Redirect to='/score_card' />);
     }

@@ -1,28 +1,27 @@
 class Api::ScoresController < ApplicationController
   def index
-    scores = []
+    complete_scores = []
+    incomplete_scores = []
 
     User.all.each do |user|
-      smallest_score = user.scores.select{ |s| s['complete'] }.first['total']
-      date = nil
-      github_url = ''
-
       user.scores.each do |score|
-        next unless score['complete']
         total = score['total']
-        if total <= smallest_score
-          smallest_score = total
-          date = score['date']
-          github_url = score['github_url']
+        complete = score['complete']
+        date = score['date']
+        github_url = score['github_url']
+        result =  { email: user.email, date: date, score: total, github_url: github_url, complete: complete }
+        if complete
+          complete_scores << result
+        else
+          incomplete_scores << result
         end
-      end
-
-      if date
-        scores << { email: user.email, date: date, score: smallest_score, github_url: github_url }
       end
     end
 
-    render json: scores.sort_by {|_key, value| value }.reverse
+    sorted_complete = complete_scores.sort_by {|_key, value| value }.reverse
+    sorted_incomplete = incomplete_scores.sort_by {|_key, value| value }.reverse
+
+    render json: { complete_scores: sorted_complete, incomplete_scores: sorted_incomplete }
   end
 
   def create

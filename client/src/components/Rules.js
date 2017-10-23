@@ -18,7 +18,7 @@ const Rules = () => (
                 def my_awesome_method(num, letter) = 10 chars num,letter
               </pre>
               <Divider hidden />
-              Spaces, new lines, and puts statements do not count
+              Spaces, new lines, and puts statements do NOT count
               The method has to work per the specifications.
               <Divider hidden />
               <h3 style={{ color: 'red', fontWeight: 'bold'}}>
