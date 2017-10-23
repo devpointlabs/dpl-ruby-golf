@@ -44,6 +44,7 @@ class ScoreCard extends Component {
               <Table.HeaderCell>7</Table.HeaderCell>
               <Table.HeaderCell>8</Table.HeaderCell>
               <Table.HeaderCell>9</Table.HeaderCell>
+              <Table.HeaderCell>Completed Round?</Table.HeaderCell>
               <Table.HeaderCell>Total</Table.HeaderCell>
             </Table.Row>
           </Table.Header>

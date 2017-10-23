@@ -5,9 +5,10 @@ import { connect } from 'react-redux';
 class ScoreCardEntry extends Component {
   render() {
     const { score, user } = this.props;
+    const style = score.complete ? {} : { backgroundColor: 'red' }
 
     return(
-      <Table.Row>
+      <Table.Row style={{...style}}>
         <Table.Cell>
           {user.email}
         </Table.Cell>
@@ -23,6 +24,9 @@ class ScoreCardEntry extends Component {
             )
           })
         }
+        <Table.Cell>
+          {score.complete ? 'Yes' : 'No' }
+        </Table.Cell>
         <Table.Cell>
           { score.total }
         </Table.Cell>
