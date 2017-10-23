@@ -57,7 +57,7 @@ class Leaderboard extends Component {
             </Segment>
           </Container>
         </Tab.Pane> },
-        { menuItem: 'Incomplete Scores', render: () => <Tab.Pane inverted>
+        { menuItem: 'Incomplete Round Scores', render: () => <Tab.Pane inverted>
           <Container>
             <Segment inverted textAlign='center'>
               <List celled inverted ordered>
