@@ -1,4 +1,4 @@
-u = User.first_or_create(email: 'test@test.com', password: 'password' )
+u = User.first_or_create(email: 'test@test.com', password: 'password', role: 'admin')
 u.scores = []
 
 u.scores << {

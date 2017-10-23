@@ -10,7 +10,8 @@ class Leaderboard extends Component {
   state = { completeScores: [], incompleteScores: [], isAuthorized: true };
 
   componentDidMount() {
-    if(this.props.user.scores.length) {
+    const { user: { role, scores } } = this.props;
+    if(scores.length || role === 'admin') {
       const { dispatch } = this.props;
 
       axios.get('/api/scores')
