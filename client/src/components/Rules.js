@@ -54,7 +54,7 @@ const Rules = () => (
         <List.Item>
           <List.Content>
             <List.Header as='h1'>HOLE 5: Caesar Cipher</List.Header>
-            Take in a string and an offset, encrypt the string by moving letters over by the offset and return the encrypted string (e.g “ab”, 3 would return “de”).
+            Take in a string and an offset, encrypt the string by moving letters over by the offset and return the encrypted string (e.g “ab”, 3 would return “de”). When you hit Z loop back to A.
           </List.Content>
         </List.Item>
         <List.Item>
