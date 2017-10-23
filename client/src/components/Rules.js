@@ -72,7 +72,7 @@ const Rules = () => (
         <List.Item>
           <List.Content>
             <List.Header as='h1'>HOLE 8: Love Test</List.Header>
-            Create a method that takes in 2 strings and counts the total number of characters in common then divides by the total number of characters in both names to find the chance of a connection.
+            Create a method that takes in 2 strings and counts the total number of characters in common. Then divide by the total number of characters in both strings by characters in common to find the chance of a connection. Spaces do not count.
           </List.Content>
         </List.Item>
         <List.Item>
