@@ -33,7 +33,7 @@ class Leaderboard extends Component {
     if(sortByHoles)
       slicedScores.sort((a,b) => {
         return a.holes_completed - b.holes_completed;
-      });
+      }).reverse();
     else
       slicedScores.sort((a,b) => {
         return a.score - b.score;
@@ -73,7 +73,7 @@ class Leaderboard extends Component {
         { menuItem: 'Incomplete Round Scores', render: () => <Tab.Pane inverted>
           <Container>
             <Segment inverted textAlign='center'>
-              <List celled inverted ordered>
+              <List celled inverted>
                 { this.displayScores(incompleteScores, true) }
               </List>
             </Segment>
